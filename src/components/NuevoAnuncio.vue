@@ -248,7 +248,7 @@ export default {
         descripcion: "",
         precio: null,
         sistema: "",
-        fecha: Date.now()
+        fecha: new Date().toLocaleString()
       },
     };
   },
@@ -275,7 +275,7 @@ export default {
             descripcion: "",
             precio: null,
             sistema: "",
-            fecha: Date.now()
+            fecha: new Date().toLocaleString()
       }
     },
     addAnuncio() {

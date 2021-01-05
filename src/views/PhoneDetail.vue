@@ -13,7 +13,7 @@
         dark progress progress-color="purple"
         >
           <v-carousel-item
-              v-for="(item,i) in imagenes"
+              v-for="(item,i) in imageDetail"
               :key="i"
               :src="item"
               reverse-transition="fade-transition"
@@ -57,7 +57,7 @@
               class="my-5"
               justify="center"
               align="center">
-            <v-btn outlined  color="amber darken-4">COMPRAR</v-btn>
+            <v-btn outlined depressed elevation="12" color="amber darken-4">COMPRAR</v-btn>
           </v-row>
       <v-col>
         <v-card
@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import {storage} from "@/firebase";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
 name: "PhoneDetail",
@@ -188,28 +188,16 @@ name: "PhoneDetail",
       imagenes:[],
       selectedItem: 1
   }},
+  computed: {
+  ...mapGetters(['imageDetail'])
+  },
   methods:{
-    getImagenes(id){
-      this.imagenes=[]
-      const ref = storage.ref()
-      const this2=this
-      console.log('%c getImagenes', 'color:orange')
-      //console.log({id});
-      ref.child(`${id}/`).listAll()
-          .then(function (result) {
-            result.items.forEach(function (imgRef) {
-              //console.log(imgRef.toString());
-              imgRef.getDownloadURL().then(function (url) {
-                //console.log(url)
-                this2.imagenes.push(url);
-              })
-            })
-          });
-    }
+  ...mapActions(['getAllImages']),
   },
   created() {
+  this.$store.state.imageDetail = [];
     if(this.ads.id!==undefined ){
-      this.getImagenes(this.ads.id);
+      this.getAllImages(this.ads.id);
     }else {
       this.$router.push('/');
     }
