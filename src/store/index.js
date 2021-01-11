@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { db, storage } from '@/firebase'
+import {firestoreAction, vuexfireMutations} from "vuexfire";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -37,9 +38,14 @@ export default new Vuex.Store({
       },
       setDisplay(state, texto){
           state.searchDisplay = texto;
-      }
+      },
+      ...vuexfireMutations,
   },
   actions: {
+      bindTodos: firestoreAction(({ bindFirestoreRef }) => {
+          // return the promise returned by `bindFirestoreRef`
+          return bindFirestoreRef('anuncios', db.collection('anuncios'))
+      }),
    async getAnuncios({commit}){
       const anuncios = [];
       await db.collection('anuncios').get().then(res => {
@@ -51,15 +57,26 @@ export default new Vuex.Store({
   },
     //idk why, but not works :( 
   async findByRange({commit}, desde, hasta){
-  await db.collection("anuncios").where("precio", ">=", desde).where("precio", "<=", hasta).get()
+
+
+    const query = await db
+      .collection("anuncios")
+      .where("precio", ">=", 100)
+      .get();
+
+      query.forEach(querySnapshot => console.log(querySnapshot.data().precio));
+
+   /*  const anuncios = [];
+  await db.collection("anuncios").where("precio", ">=", "0").where("precio", "<=", "100").get()
  .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            console.log(doc.id, " => ", doc.data());
+            anuncios.push({ id: doc.id, ...doc.data() });
         });
+        commit('setAnuncio', anuncios);
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
-    });
+    }); */
   },
 
    getImages({commit},anuncios) {

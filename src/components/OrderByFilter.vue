@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row class="d-none d-sm-flex">
       <v-card>
-        <v-col cols="8">
+        <v-col>
           <v-row>
             <v-text-field
               label="Precio"
@@ -14,27 +14,41 @@
               label="Hasta"
               v-model="hasta"
               prepend-icon="mdi-currency-usd"
-            ></v-text-field>
+            >
+            </v-text-field>
             <v-btn @click="priceRange()"> buscar</v-btn>
           </v-row>
         </v-col>
       </v-card>
 
-      <v-col cols="4">
+      <v-col >
         <v-card>
           <span>ordenar por: </span>
-          <v-col
-            ><v-btn @click="orderByPrecio()">precio</v-btn>
-            <v-btn @click="orderByFecha()">Fecha publicación</v-btn></v-col
-          >
+          <v-col>
+            <v-btn @click="orderByPrecio()"><v-icon>mdi-cash-100</v-icon> Precio</v-btn>
+            <v-btn @click="orderByFecha()"><v-icon>mdi-calendar-check</v-icon> Fecha</v-btn>
+          </v-col>
         </v-card>
       </v-col>
+    </v-row>
+    <v-row class="d-flex d-sm-none">
+      <v-col cols="8">
+        <v-select
+            color="deep purple"
+            :items="items"
+            outlined
+            item-color="yellow"
+            v-on:change="sortList"
+            label="Ordenar Por:"
+        ></v-select>
+      </v-col>
+      <v-col cols="4"> <v-btn color="orange"> <v-icon size="30px" color="black">mdi-filter</v-icon>  </v-btn>  </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "OrderByFilter",
   data() {
@@ -44,11 +58,19 @@ export default {
       fecha: false,
       desde: 0,
       hasta: 0,
+      items:['Precio','Fecha']
     };
   },
   methods: {
+    sortList(value){
+     if(value === 'Precio'){
+       this.orderByPrecio();
+     }else {
+       this.orderByFecha();
+     }
+    },
     orderByPrecio() {
-      if (this.precio != true) {
+      if (this.precio !== true) {
         this.anuncios.sort((a, b) => a.precio - b.precio);
       } else {
         this.anuncios.sort((a, b) => b.precio - a.precio);
@@ -56,22 +78,25 @@ export default {
       this.precio = !this.precio;
     },
     orderByFecha() {
-      if (this.fecha != true) {
+      if (this.fecha !== true) {
         this.anuncios.sort((a, b) => a.fecha - b.fecha);
       } else {
         this.anuncios.sort((a, b) => b.fecha - a.fecha);
       }
       this.fecha = !this.fecha;
     },
-    priceRange() {
-      const result = this.anuncios.filter(
-        (anuncio) =>
-          anuncio.precio >= this.desde && anuncio.precio <= this.hasta
-      );
-      this.anuncios = result;
-      // this.findByRange(this.desde, this.hasta);
+    async priceRange() {
+      const elementos = [];
+      await this.getAnuncios();
+      this.anuncios.forEach((element) => {
+        if (element.precio >= this.desde && element.precio <= this.hasta)
+          elementos.push(element);
+      });
+      this.setAnuncio(elementos);
+      console.log(elementos);
     },
-    ...mapActions(["findByRange"]),
+    ...mapMutations(["setAnuncio"]),
+    ...mapActions(["getAnuncios"]),
   },
   computed: {
     ...mapGetters(["anuncios"]),

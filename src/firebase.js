@@ -12,9 +12,10 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const storage = firebase.storage()
-
 const db = firebase.firestore();
+// Export types that exists in Firestore
+// This is not always necessary, but it's used in other examples
+const { TimeStamp, GeoPoint } = firebase.firestore;
 
-export { db, storage };
+export { db, storage, TimeStamp, GeoPoint };

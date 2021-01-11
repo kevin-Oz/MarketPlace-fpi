@@ -19,6 +19,11 @@ const routes = [
     path: '/detail/:ads',
     name: 'detail',
     component: () => import(/* webpackChunkName: "detail" */ '../views/PhoneDetail')
+  },
+  {
+    path: '/new',
+    name: 'new',
+    component: () => import(/* webpackChunkName: "detail" */ '../components/NuevoAnuncio')
   }
 ]
 

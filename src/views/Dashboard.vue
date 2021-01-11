@@ -2,24 +2,25 @@
   <div>
     <v-container fluid>
       <v-row dense>
-        <v-col cols="2" xl="2" lg="2">
-          <filter-checkbox />
+        <v-col class="d-none d-sm-flex" cols="2" xl="2" lg="2">
+         acá van los filtros de checkbox
         </v-col>
+
         <v-col cols="10" xl="10" lg="10" md="10">
-          <order-by-filter></order-by-filter>
+          <order-by-filter/>
 
           <template>
-            <v-row>
+            <v-row class="justify-center" no-gutters>
               <v-card
-                class="my-1 mx-1"
-                max-width="280"
+                class="my-1 mx-2"
+                max-width="260"
                 v-for="(ads, index) in anuncios"
                 v-show="filtro(index)"
                 :key="index"
               >
                 <div v-for="(image, index2) in imagenes" :key="index2">
                   <div v-if="ads.id === image.id">
-                    <v-img :src="image.urlImage" height="200px"></v-img>
+                    <v-img :src="image.urlImage" max-height="200px"></v-img>
                   </div>
                 </div>
 
@@ -62,7 +63,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import FilterCheckbox from "@/components/FilterCheckbox";
 import { storage } from "@/firebase";
 import PhoneDetail from "@/views/PhoneDetail";
@@ -76,7 +77,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getAnuncios", "getImages"]),
+    ...mapActions(["getAnuncios", "getImages", "bindTodos"]),
     moveToDetail(anuncio) {
       this.$router.push({
         name: "detail",
@@ -93,7 +94,7 @@ export default {
     },
     async getData() {
       this.$store.state.images = [];
-      await this.getAnuncios();
+      await this.bindTodos();
       console.log(this.imagenes);
       await this.getImages(this.anuncios);
     },
