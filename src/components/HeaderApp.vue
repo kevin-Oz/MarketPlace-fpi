@@ -4,7 +4,7 @@
       <v-row no-gutters>
           <v-col>
             <v-app-bar class="d-none d-sm-flex" app color="yellow darken-2">
-              <v-icon color="red" x-large>mdi-cube</v-icon>
+              <v-icon  color="red" x-large>mdi-cube</v-icon>
               <h3 class="mb-1">Tienda CellPhone</h3>
               <v-text-field
                 class=" mx-6"
@@ -27,9 +27,15 @@
               <v-btn to="new">
                 Nuevo Anuncio
               </v-btn>
-              <v-icon x-large color="black">
-                mdi-cart
-              </v-icon>
+              <v-badge
+                  overlap
+                  content="2"
+              >
+                <v-icon x-large color="black">
+                  mdi-cart
+                </v-icon>
+              </v-badge>
+
             </v-app-bar>
 
             <v-system-bar color="deep-purple darken-3"></v-system-bar>
@@ -55,8 +61,7 @@
               <v-list nav dense>
                 <v-list-item-group
                   v-model="group"
-
-                  active-class="deep-purple--text text--accent-4"
+                  active-class="amber darken-4 text--accent-4"
                 >
                   <v-list-item to="/" class="justify-center">
                     <v-icon>mdi-cube </v-icon>EbayCellphone

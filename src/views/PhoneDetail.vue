@@ -10,7 +10,7 @@
       >
         <v-carousel continuous
         cycle height="300"
-        dark progress progress-color="purple"
+        dark progress progress-color="yellow"
         >
           <v-carousel-item
               v-for="(item,i) in imageDetail"
@@ -93,7 +93,7 @@
                 <v-icon>mdi-marker-check</v-icon> Estado:
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title v-text="ads.estado"></v-list-item-title>
+                <v-list-item-title>{{ads.estado==='nuevo'?'NUEVO':'USADO'}}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
 

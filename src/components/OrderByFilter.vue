@@ -42,15 +42,24 @@
             label="Ordenar Por:"
         ></v-select>
       </v-col>
-      <v-col cols="4"> <v-btn color="orange"> <v-icon size="30px" color="black">mdi-filter</v-icon>  </v-btn>  </v-col>
+      <v-col cols="4"> <v-btn color="orange" @click="dialogFilter=true"> <v-icon size="30px" color="black">mdi-filter</v-icon>  </v-btn>  </v-col>
+      <v-dialog
+          class="d-flex d-sm-none"
+          v-model="dialogFilter"
+      >
+        <v-btn color="orange" @click="dialogFilter= false"><v-icon>mdi-close</v-icon>close</v-btn>
+        <filter-checkbox/>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import FilterCheckbox from "@/components/FilterCheckbox";
 export default {
   name: "OrderByFilter",
+  components:{FilterCheckbox},
   data() {
     return {
       value: 0,
@@ -58,6 +67,7 @@ export default {
       fecha: false,
       desde: 0,
       hasta: 0,
+      dialogFilter: false,
       items:['Precio','Fecha']
     };
   },

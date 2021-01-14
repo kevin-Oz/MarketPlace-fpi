@@ -231,7 +231,7 @@ export default {
   data() {
     return {
       stepper: 1,
-      sistemas: ["IOS", "Android", "Windows"],
+      sistemas: ["Android", "Ios", "Windows", "Blackberry", "Otro"],
       dialog: false,
       file: null,
       files: [],
@@ -259,7 +259,7 @@ export default {
         descripcion: "",
         precio: 0,
         sistema: "",
-        fecha: new Date()
+        fecha: new Date(),
       };
     },
     addAnuncio() {
@@ -291,7 +291,7 @@ export default {
       this.dialog = false;
       this.stepper = 1;
       this.resetData();
-      this.$router.push('/');
+      this.$router.push("/");
     },
     validateProducto() {
       if (this.$refs.frmProducto.validate()) {
@@ -301,7 +301,7 @@ export default {
   },
   created() {
     this.dialog = true;
-  }
+  },
 };
 </script>
 

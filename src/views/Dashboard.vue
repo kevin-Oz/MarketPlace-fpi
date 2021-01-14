@@ -3,14 +3,14 @@
     <v-container fluid>
       <v-row dense>
         <v-col class="d-none d-sm-flex" cols="2" xl="2" lg="2">
-         acá van los filtros de checkbox
+          <filter-checkbox/>
         </v-col>
-
-        <v-col cols="10" xl="10" lg="10" md="10">
-          <order-by-filter/>
-
+        <v-col  xl="10" lg="10" md="10">
           <template>
+
             <v-row class="justify-center" no-gutters>
+              <order-by-filter  />
+
               <v-card
                 class="my-1 mx-2"
                 max-width="260"
@@ -23,7 +23,6 @@
                     <v-img :src="image.urlImage" max-height="200px"></v-img>
                   </div>
                 </div>
-
                 <v-card-title class="justify-center">
                   <v-chip color="yellow accent-4"> $ {{ ads.precio }} </v-chip>
                 </v-card-title>
@@ -63,9 +62,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import FilterCheckbox from "@/components/FilterCheckbox";
-import { storage } from "@/firebase";
 import PhoneDetail from "@/views/PhoneDetail";
 import OrderByFilter from "@/components/OrderByFilter";
 export default {
@@ -77,7 +75,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getAnuncios", "getImages", "bindTodos"]),
+    ...mapActions(["getAnuncios", "getImages"]),
     moveToDetail(anuncio) {
       this.$router.push({
         name: "detail",
@@ -89,12 +87,21 @@ export default {
     filtro(valor_orden) {
       if (this.searchDisplay === "") return true;
       let cad =
-        this.anuncios[valor_orden].marca + this.anuncios[valor_orden].modelo;
+        this.anuncios[valor_orden].marca +
+        this.anuncios[valor_orden].modelo +
+        this.anuncios[valor_orden].pantalla +
+        this.anuncios[valor_orden].titulo +
+        this.anuncios[valor_orden].precio +
+        this.anuncios[valor_orden].sistema+
+      this.anuncios[valor_orden].ram +
+      this.anuncios[valor_orden].rom +
+      this.anuncios[valor_orden].vendedor +
+      this.anuncios[valor_orden].descripcion;
       return cad.toUpperCase().indexOf(this.searchDisplay.toUpperCase()) >= 0;
     },
     async getData() {
       this.$store.state.images = [];
-      await this.bindTodos();
+      await this.getAnuncios();
       console.log(this.imagenes);
       await this.getImages(this.anuncios);
     },
