@@ -1,15 +1,15 @@
 <template>
   <div>
-    <v-card class="align-center align-content-center">
+    <v-card elevation="17" class="align-center align-content-center">
       <v-container>
-      <v-row>
-      <v-switch
-          label="Nuevo"
-          v-model="nuevo"
-          :onchange="changeStatus()"
-          color="green"
-      ></v-switch>
-      </v-row>
+        <v-row>
+          <v-switch
+            label="Nuevo"
+            v-model="nuevo"
+            :onchange="changeStatus()"
+            color="orange"
+          ></v-switch>
+        </v-row>
       </v-container>
     </v-card>
 
@@ -34,7 +34,7 @@
       </v-container>
     </v-card>
 
-    <v-card elevation="2" class="my-2 align-content-center">
+    <v-card elevation="16" class="my-2 align-content-center">
       <v-card-subtitle>SISTEMAS</v-card-subtitle>
       <v-container fluid>
         <v-list v-for="(so, index) in sistemaCantidad" :key="index">
@@ -69,7 +69,7 @@ export default {
       sistemaSelected: [],
       sistemaCantidad: [],
       nuevo: true,
-      dialog: true
+      dialog: true,
     };
   },
 

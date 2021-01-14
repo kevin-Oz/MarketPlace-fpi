@@ -1,13 +1,12 @@
 <template>
   <div>
-    <v-container fluid>
+    <v-container fluid >
       <v-row dense>
-        <v-col class="d-none d-sm-flex" cols="2" xl="2" lg="2">
+        <v-col class="d-none d-sm-flex" cols="2">
           <filter-checkbox/>
         </v-col>
-        <v-col  xl="10" lg="10" md="10">
+        <v-col  cols="10">
           <template>
-
             <v-row class="justify-center" no-gutters>
               <order-by-filter  />
 
@@ -102,7 +101,6 @@ export default {
     async getData() {
       this.$store.state.images = [];
       await this.getAnuncios();
-      console.log(this.imagenes);
       await this.getImages(this.anuncios);
     },
   },

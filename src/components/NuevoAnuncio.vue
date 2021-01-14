@@ -225,6 +225,7 @@
 <script>
 import { storage } from "@/firebase";
 import { mapActions, mapState } from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   name: "NuevoAnuncio",
@@ -282,6 +283,13 @@ export default {
           console.log("Uploaded file!");
         });
       }
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Anuncio publicado con exito!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       this.clearForm();
     },
     clearForm() {
