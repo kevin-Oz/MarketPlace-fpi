@@ -3,23 +3,28 @@
     <v-container fluid>
       <v-row no-gutters>
         <v-col>
-          <v-app-bar class="d-none d-sm-flex" app color="yellow darken-2">
+          <v-app-bar
+              absolute
+              color="yellow darken-2"
+              dark
+              app          >
             <v-icon color="red" x-large>mdi-cube</v-icon>
-            <h3 class="mb-1">Tienda CellPhone</h3>
+            <h3 class="mb-1 black--text">Tienda CellPhone</h3>
             <v-text-field
-              class=" mx-6"
-              label="search phone"
-              v-model="busqueda"
-              @keyup="setDisplay(busqueda)"
-              hide-details="auto"
-              prepend-inner-icon="mdi-magnify"
+                class="mx-6"
+                label="search phone"
+                v-model="busqueda"
+                @keyup="setDisplay(busqueda)"
+                hide-details="auto"
+                prepend-inner-icon="mdi-magnify"
             ></v-text-field>
+            <v-spacer></v-spacer>
             <v-btn color="primary" elevation="11" class="mx-2" to="/">
               <v-icon> mdi-home </v-icon>Inicio</v-btn
             >
 
             <v-btn color="secondary" elevation="11" class="mx-2" to="/charts"
-              ><v-icon>mdi-chart-line</v-icon>
+            ><v-icon>mdi-chart-line</v-icon>
 
               Estadistica</v-btn
             >
@@ -27,14 +32,12 @@
               <v-icon>mdi-plus-circle </v-icon>
               Nuevo Anuncio
             </v-btn>
-            <v-badge overlap content="2">
-              <v-icon x-large color="black">
+            <v-badge  overlap content="2">
+              <v-icon x-large color="black" >
                 mdi-cart
               </v-icon>
             </v-badge>
           </v-app-bar>
-
-          <v-system-bar color="deep-purple darken-3"></v-system-bar>
 
           <v-app-bar class="d-flex d-sm-none" app color="yellow darken-2">
             <v-app-bar-nav-icon
